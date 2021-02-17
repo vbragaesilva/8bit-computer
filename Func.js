@@ -21,7 +21,7 @@ export const dec2bin = (num) => {
 }
 
 
-export const delay = ms =>  {
+export const sleep = ms =>  {
   const date = Date.now();
   let currentDate = null;
   do {

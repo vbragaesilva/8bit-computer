@@ -1,3 +1,5 @@
+import Hbyte from "./Hbyte.js"
+
 export default function Byte(val, name){
     this.value = val
     this.name = name
@@ -30,6 +32,10 @@ export default function Byte(val, name){
 
     this.out = bus => {
         bus.byte.set(this)
+    }
+
+    this.outLower = bus => {
+        bus.byte.set(new Hbyte(this.lower()))
     }
 
     this.in = bus => {
