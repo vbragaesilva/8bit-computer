@@ -1,5 +1,9 @@
-export default function Byte(s){
-    this.value = s
+export default function Byte(val, name){
+    this.value = val
+    this.name = name
+    this.print = () => {
+        console.log(`${this.name}: ${this.value}`)
+    }
 
     this.lower = () => {
         return this.value.substring(4)

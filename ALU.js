@@ -1,17 +1,5 @@
 import Byte from './Byte.js'
-function dec2bin(num){
-    let bin = num.toString(2)
-    let len = bin.length
-    let dif = 8 - len
-    if(len < 8){
-        let zeroes = '0'.repeat(dif)
-        bin = zeroes + bin
-    }else if (len > 8){
-        bin = bin.substring(Math.abs(dif))
-    }
-
-    return bin
-}
+import { dec2bin } from './Func.js'
 
 export default function ALU(){
     this.sum = (b1, b2) => {

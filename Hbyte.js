@@ -1,6 +1,10 @@
-
-export default function Hbyte(valor){
+import { dec2bin } from './Func.js'
+export default function Hbyte(valor, name){
     this.value = valor
+    this.name = name
+    this.print = () => {
+        console.log(`${this.name}: ${this.value}`)
+    }
 
     this.dec = () => {
         const s = '0b' + this.value
@@ -21,5 +25,10 @@ export default function Hbyte(valor){
 
     this.in = bus => {
         this.set(bus.byte.lower())
+    }
+
+    this.countOne = () => {
+        const num = this.dec() + 1
+        this.value = dec2bin(num).substring(4)
     }
 }

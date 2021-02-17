@@ -1,11 +1,17 @@
 import Byte from './Byte.js'
 
-export default function Memory(){
-    this.bytes = []
-    for(let i = 0 ; i < 16 ; i++){
-        this.bytes[i] = new Byte('00000000')
+export default function Memory(array){
+    if(array){
+        this.bytes = [];
+        for(let i = 0 ; i < 16 ; i++){
+            this.bytes[i] = new Byte(array[i])
+        }
+    }else{
+        this.bytes = [];
+        for(let i = 0 ; i < 16 ; i++){
+            this.bytes[i] = new Byte('00000000')
+        }
     }
-
     this.out = (add, bus) => {
         let address = this.getAdd(add)
         bus.byte.set(this.bytes[address])
