@@ -107,13 +107,13 @@ alu.update(a, b)
 
 // program----------------------------------------------------------
 const delay = 50 //ms
-ram.set('0000', `${LDA}1111`)
-ram.set('0001', `${ADD}1110`)
+ram.set('0000', `${LDI}0001`)
+ram.set('0001', `${SUB}1111`)
 ram.set('0010', `${OUT}0000`)
-ram.set('0011', `${JMP}0001`)
+ram.set('0011', `${HLT}0000`)
 
-ram.set('1111', dec2bin(0))
-ram.set('1110', dec2bin(14))
+ram.set('1111', dec2bin(2))
+ram.set('1110', dec2bin(3))
 
 while(! halt){
     let s = `${i.upper()}${sc.value}`

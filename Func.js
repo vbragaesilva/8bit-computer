@@ -8,6 +8,7 @@ export const cl = (...args) => {
 
 export const dec2bin = (num) => {
     let bin = num.toString(2)
+    bin = bin.replace('-', '')
     let len = bin.length
     let dif = 8 - len
     if(len < 8){
@@ -16,15 +17,16 @@ export const dec2bin = (num) => {
     }else if (len > 8){
         bin = bin.substring(Math.abs(dif))
     }
-
     return bin
 }
 
 
 export const sleep = ms =>  {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < ms);
+    if(ms != 0){
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < ms);
+    }
 }
