@@ -6,15 +6,15 @@ export const cl = (...args) => {
     console.log(st)
 }
 
-export const dec2bin = (num) => {
+export const dec2bin = (num, bits = 8) => {
     let bin = num.toString(2)
     bin = bin.replace('-', '')
     let len = bin.length
-    let dif = 8 - len
-    if(len < 8){
+    let dif = bits - len
+    if(len < bits){
         let zeroes = '0'.repeat(dif)
         bin = zeroes + bin
-    }else if (len > 8){
+    }else if (len > bits){
         bin = bin.substring(Math.abs(dif))
     }
     return bin

@@ -1,0 +1,16 @@
+mov 12 0
+mov 13 1
+mov 14 6 
+mov 15 15
+
+lda 12
+add 15
+sta 12
+lda 14
+sub 13
+jpz 8
+sta 14
+jmp 0
+lda 12
+out 
+hlt
