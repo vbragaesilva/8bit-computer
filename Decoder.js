@@ -1,5 +1,8 @@
 import Byte from './Byte.js'
 import { dec2bin } from './Func.js'
+const NEG = 0
+const ZERO = 1
+const CARRY = 2
 export default function Decoder(){
     this.notifyNames = {nothing:[() => {}]}
     this.values = []
@@ -30,7 +33,7 @@ export default function Decoder(){
         }
     }
 
-    this.exec = (byteString) => {
+    this.exec = (byteString, flags = '0000') => {
         const l = byteString.substring(4)
         const u = byteString.substring(0, 4)
         if(l == '0000'){ // FETCH
@@ -43,9 +46,6 @@ export default function Decoder(){
             if(l == '0100') this.notifyAll('iomi')
             if(l == '0110') this.notifyAll('roai')
             if(l == '1000') this.notifyAll('reset')
-            // if(l == '1010') this.notifyAll('nothing')
-            // if(l == '1100') this.notifyAll('nothing')
-            // if(l == '1110') this.notifyAll('nothing')
         }
 
         if(u == '0010'){ // ADD
@@ -53,8 +53,6 @@ export default function Decoder(){
             if(l == '0110') this.notifyAll('robi')
             if(l == '1000') this.notifyAll('eoai')
             if(l == '1010') this.notifyAll('reset')
-            // if(l == '1100') this.notifyAll('nothing')
-            // if(l == '1110') this.notifyAll('nothing')
         }
 
         if(u == '0011'){ // SUB
@@ -62,17 +60,12 @@ export default function Decoder(){
             if(l == '0110') this.notifyAll('robi')
             if(l == '1000') this.notifyAll('sueoai')
             if(l == '1010') this.notifyAll('reset')
-            // if(l == '1100') this.notifyAll('nothing')
-            // if(l == '1110') this.notifyAll('nothing')
         }
 
         if(u == '0100'){ // STA
             if(l == '0100') this.notifyAll('iomi')
             if(l == '0110') this.notifyAll('aori')
             if(l == '1000') this.notifyAll('reset')
-            // if(l == '1010') this.notifyAll('nothing')
-            // if(l == '1100') this.notifyAll('nothing')
-            // if(l == '1110') this.notifyAll('nothing')
         }
 
         if(u == '0101'){ // LDI
@@ -85,13 +78,25 @@ export default function Decoder(){
             if(l == '0110') this.notifyAll('reset')
         }
 
+        if(u == '0111'){ // JPN
+            if(l == '0100' && flags[NEG] == '1') this.notifyAll('ioci')
+            if(l == '0110') this.notifyAll('reset-flags')
+            if(l == '1000') this.notifyAll('reset')
+        }
+        if(u == '1000'){ // JPZ
+            if(l == '0100' && flags[ZERO] == '1') this.notifyAll('ioci')
+            if(l == '0110') this.notifyAll('reset-flags')
+            if(l == '1000') this.notifyAll('reset')
+        }
+        if(u == '1001'){ // JPC
+            if(l == '0100' && flags[CARRY] == '1') this.notifyAll('ioci')
+            if(l == '0110') this.notifyAll('reset-flags')
+            if(l == '1000') this.notifyAll('reset')
+        }
+
         if(u == '1110'){ // OUT
             if(l == '0100') this.notifyAll('aooi')
             if(l == '0110') this.notifyAll('reset')
-            // if(l == '1000') this.notifyAll('nothing')
-            // if(l == '1010') this.notifyAll('nothing')
-            // if(l == '1100') this.notifyAll('nothing')
-            // if(l == '1110') this.notifyAll('nothing')
         }
 
         if(u == '1111'){ // HLT

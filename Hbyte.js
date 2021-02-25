@@ -19,12 +19,20 @@ export default function Hbyte(valor, name){
         }
     }
 
+    this.reset = () => {
+        this.value = '0000'
+    }
+
     this.out = bus => {
         bus.byte.value = `0000${this.value}`
     }
 
     this.in = bus => {
-        this.set(bus.byte.lower())
+        if(bus.byte){
+            this.set(bus.byte.lower())
+        }else if (bus.hbyte){
+            this.set(bus.hbyte)
+        }
     }
 
     this.countOne = () => {

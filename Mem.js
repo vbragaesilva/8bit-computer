@@ -30,11 +30,13 @@ export default function Memory(array){
     this.getAdd = thing => {
         let num = 0
         if(thing.constructor.name == 'Hbyte'){
-                num = thing.dec()
-            }else if(thing.constructor.name == 'Byte'){
-                num = Number(`0b${thing.lower()}`)
-            }else if(typeof thing == 'string'){
-                num = Number(`0b${thing}`)
+            num = thing.dec()
+        }else if(thing.constructor.name == 'Byte'){
+            num = Number(`0b${thing.lower()}`)
+        }else if(typeof thing == 'string'){
+            num = Number(`0b${thing}`)
+        }else if(typeof thing == 'number' && thing < 16){
+            num = thing;
         }
         return num;
     }

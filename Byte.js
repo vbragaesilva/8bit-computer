@@ -30,6 +30,10 @@ export default function Byte(val, name){
         }
     }
 
+    this.reset = () => {
+        this.value = '00000000'
+    }
+
     this.out = bus => {
         bus.byte.set(this)
     }
