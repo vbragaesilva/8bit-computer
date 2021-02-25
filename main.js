@@ -1,25 +1,23 @@
-import Computer from './Computer.js'
+import readline from 'readline-sync'
+import Interpreter from './language-bots/interpreter.js'
 
-const comp = new Computer();
-const c = {}
-for(let i in comp.commands){
-    c[i] = comp.commands[i].hbyte
+const path = readline.question('Type the name of the .bit file: ')
+const delayOrFPS = readline.question('Do you want to set the Delay or FPS? (delay): ') || 'delay'
+let value
+const int = new Interpreter()
+if(delayOrFPS.toLowerCase() == 'fps'){
+    value = readline.question('Type the value of FPS (FPS = 1000): ') || 1000
+    int.setComputerFPS(value)
+}else{
+    value = readline.question('Type the value of delay in ms (delay = 1): ')
+    int.setComputerDelay(value)
 }
-comp.setFPS(60)
-comp.setLogging(false)
-comp.ram.set(0, `${c.LDA}1100`)
-comp.ram.set(1, `${c.ADD}1111`)
-comp.ram.set(2, `${c.STA}1100`)
-comp.ram.set(3, `${c.LDA}1110`)
-comp.ram.set(4, `${c.SUB}1101`)
-comp.ram.set(5, `${c.JPZ}1000`)
-comp.ram.set(6, `${c.STA}1110`)
-comp.ram.set(7, `${c.JMP}0000`)
-comp.ram.set(8, `${c.LDA}1100`)
-comp.ram.set(9, `${c.OUT}0000`)
-comp.ram.set(10, `${c.HLT}0000`)
-comp.ram.set('1100', `00000000`)
-comp.ram.set('1101', `00000001`)
-comp.ram.set('1110', `00000111`)
-comp.ram.set('1111', `00001001`)
-comp.run();
+const logIt = readline.question('Do you want to log every step? (no): ') || 'no'
+if (logIt == 'no'){
+    int.setComputerLogging(false)
+}else{
+    int.setComputerLogging(true)
+}
+
+console.log('-'.repeat(40), '\n')
+int.read(path)
