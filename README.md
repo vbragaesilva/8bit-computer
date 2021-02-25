@@ -20,6 +20,9 @@ JMP x -> Go to x° instruction (MOV are not counted)
 JPN x -> Go to x if the previous math operation is negative
 JPZ x -> Go to x if the previous math operation is zero
 JPC x -> Go to x if the previous math operation is > 255
+
+//Where 0<x<16
+//And 0<y<255
 ```
 
 ## Using the computer with javascript
