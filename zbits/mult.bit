@@ -1,7 +1,7 @@
 mov 12 0
 mov 13 1
-mov 14 5
-mov 15 51
+mov 14 5 #n1
+mov 15 51 #n2
 
 lda 12
 add 15
@@ -12,5 +12,5 @@ jpz 8
 sta 14
 jmp 0
 lda 12
-out 
+out  #n1 * n2
 hlt
