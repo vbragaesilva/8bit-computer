@@ -5,7 +5,7 @@ A programmable 8 bit computer
 ## Using the computer
 ---
 The entry point of the application is `main.js`
-This file will ask for a `.bit` file in the same directory.
+This file will ask for a `.bit` file in the `zbits` directory .
 
 ## THE .bit SYNTAX
  

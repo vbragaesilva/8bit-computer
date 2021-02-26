@@ -1,0 +1,7 @@
+mov 15 3
+ldi 0
+out
+add 15
+jpc 5
+jmp 1
+hlt

@@ -3,7 +3,7 @@ import Computer from '../components/Computer.js'
 import { dec2bin } from '../components/Func.js'
 function splitn(string){
     try{
-        return string.split('\n').filter(i => {if(i) return i})
+        return string.split('\r\n').filter(i => {if(i) return i})
     }catch{console.log('Error!')}
 }
 export default class Interpreter{
@@ -32,11 +32,17 @@ export default class Interpreter{
 
     getTokens(string){
         const splittedLines = splitn(string)
-        const tokens = []             
+        let tokens = []             
         for(let i in splittedLines){
-            const element = splittedLines[i]
-            tokens[i] = element.split(' ').filter(i => {if(i) return i})
+            let element = splittedLines[i]
+            let commentIndex = element.indexOf('#')
+            if(commentIndex > 0) element = element.substring(0, commentIndex) // remove comments
+            if(! element.startsWith('#')){
+                tokens.push( element.split(' ').filter(i => {if(i) return i}))
+
+            }
         } 
+        tokens = tokens.filter(el => {if(el != []) return el})
         return tokens
     }
 
@@ -44,11 +50,11 @@ export default class Interpreter{
         let content = null
         try{ // LOAD CONTENT
             if(fileName.includes('.bit')){
-                content = load(`${fileName}`)
+                content = load(`zbits/${fileName}`)
                 this.currentFileName = fileName
                 
             }else{
-                content = load(`${fileName}.bit`)
+                content = load(`zbits/${fileName}.bit`)
                 this.currentFileName = `${fileName}.bit`
             }
         }catch(err){    
