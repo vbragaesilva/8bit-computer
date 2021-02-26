@@ -77,12 +77,16 @@ export default class Interpreter{
         if(type == 'Unknown command'){
             indicator = ' '.repeat(wordLen-1) + indicator
         }
-        if(type == 'Too bigg' || type == 'Overwriting program Commands'){
-            indicator = ' '.repeat(Math.floor(lineString.length/2)) + indicator
+        if(type == 'Too big:' || type == 'Overwriting program Commands' || type == 'Param is NaN:'){
+            indicator = ' '.repeat(4) + indicator
         }
         if(type == 'Too big' || type == 'Too many parameters' || type == 'Missing parameters'){
             indicator = ' '.repeat(lineString.length-1) + indicator
         }
+        if(type == 'Param is NaN'){
+            indicator = ' '.repeat(lineString.length-1) + indicator
+        }
+
 
 
         lineString = ' '.repeat(5) + lineString
@@ -104,7 +108,7 @@ export default class Interpreter{
                 this.throwError('Unknown command', line, i)
             }
             if(command == 'MOV' && line[1] > 15){
-                this.throwError('Too bigg', line, i)
+                this.throwError('Too big:', line, i)
             }
             if( (Number(line[1]) > 15) || (Number(line[2]) > 255 && command == 'MOV') ){
                 this.throwError('Too big', line, i)
@@ -117,17 +121,25 @@ export default class Interpreter{
                     this.throwError('Missing parameters', line, i)
                 }
             }
-
+            
+            
             if(command != 'MOV'){
                 if( this.findFirstNotMOV){
                     this.firstLineNotMOV = i
                     this.findFirstNotMOV = false
                     this.numberOfProgramLines = tokensArray.length - this.firstLineNotMOV
                 }
+                if(isNaN(parseFloat(line[1]))) {
+                    if(command != 'OUT' && command != 'HLT'){
+                        this.throwError('Param is NaN', line, i)
+                    }
+                }
             }else{
                 if (i > this.firstLineNotMOV){
                     this.throwError('MOV after computer init', line, i)
                 }
+                if(isNaN(parseFloat(line[1]))) this.throwError('Param is NaN:', line, i)
+                if(isNaN(parseFloat(line[2]))) this.throwError('Param is NaN', line, i)
             }
     
         }

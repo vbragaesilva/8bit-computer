@@ -1,0 +1,15 @@
+# MADE BY ME
+mov 15 1
+mov 14 1
+
+lda 15
+add 14
+out
+sta 14
+lda 14
+add 15
+jpc 10
+out
+sta 15
+jmp 0
+hlt
