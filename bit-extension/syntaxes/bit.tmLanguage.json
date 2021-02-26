@@ -1,0 +1,41 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "BIT",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#number"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.bit",
+				"match": "\\b(mov|lda|add|sub|sta|ldi|jmp|jpn|jpz|jpc|out|hlt)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.bit",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.bit",
+					"match": "\\\\."
+				}
+			]
+		},
+		"number":{
+			"patterns":[{
+				"name":"constant.numeric.bit",
+				"match": "\\d+"
+			}]
+		}
+	},
+	"scopeName": "source.bit"
+}
